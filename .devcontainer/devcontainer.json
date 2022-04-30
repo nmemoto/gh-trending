@@ -1,0 +1,8 @@
+{
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian-11",
+    "features": {
+        "golang": "latest",
+        "github-cli": "latest"
+    },
+    "remoteUser": "vscode"
+}
