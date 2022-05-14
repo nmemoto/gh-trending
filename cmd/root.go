@@ -73,6 +73,10 @@ var rootCmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "HTML Parse error: %v", err)
 			return err
 		}
+		if len(repos) == 0 {
+			fmt.Fprintln(os.Stdout, "No Results.")
+			return nil
+		}
 
 		if mode == "json" {
 			jsonBytes, err := json.Marshal(repos)
@@ -119,7 +123,6 @@ var rootCmd = &cobra.Command{
 		}
 
 		i, _, err := prompt.Run()
-
 		if err != nil {
 			fmt.Printf("Prompt failed %v\n", err)
 			return err
