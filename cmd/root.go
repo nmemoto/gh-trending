@@ -165,25 +165,19 @@ func ParseRepos(r io.Reader) ([]Repository, error) {
 
 		// Description
 		descNode, err := htmlquery.QueryAll(article, "/p")
-		if descNode == nil || err != nil {
-			fmt.Fprintf(os.Stderr, "Repo %v Description Parse error: %v\n", hrefPath, err)
-		} else {
+		if descNode != nil && err == nil {
 			repo.Description = strings.TrimSpace(htmlquery.InnerText(descNode[0]))
 		}
 
 		// Language
 		langNode, err := htmlquery.QueryAll(article, "/div[2]/span[1]/span[2]")
-		if langNode == nil || err != nil {
-			fmt.Fprintf(os.Stderr, "Repo %v Language Parse error: %v\n", hrefPath, err)
-		} else {
+		if langNode != nil && err == nil {
 			repo.Language = htmlquery.InnerText(langNode[0])
 		}
 
 		// Stars
 		starsNode, err := htmlquery.QueryAll(article, "/div[2]/a[1]")
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Repo %v Stars Parse error: %v\n", hrefPath, err)
-		} else {
+		if starsNode != nil && err == nil {
 			repo.Stars, err = strconv.Atoi(strings.TrimSpace(strings.Replace(htmlquery.InnerText(starsNode[0]), ",", "", -1)))
 			if err != nil {
 				log.Fatal(err)
@@ -192,9 +186,7 @@ func ParseRepos(r io.Reader) ([]Repository, error) {
 
 		// Forks
 		forksNode, err := htmlquery.QueryAll(article, "/div[2]/a[2]")
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Repo %v Forks Parse error: %v\n", hrefPath, err)
-		} else {
+		if forksNode != nil && err == nil {
 			repo.Forks, err = strconv.Atoi(strings.TrimSpace(strings.Replace(htmlquery.InnerText(forksNode[0]), ",", "", -1)))
 			if err != nil {
 				log.Fatal(err)
@@ -203,9 +195,7 @@ func ParseRepos(r io.Reader) ([]Repository, error) {
 
 		// StarsInPeriod
 		starsInPeriodNode, err := htmlquery.QueryAll(article, "/div[2]/span[3]")
-		if starsInPeriodNode == nil || err != nil {
-			fmt.Fprintf(os.Stderr, "Repo %v StarsInPeriod Parse error: %v\n", hrefPath, err)
-		} else {
+		if starsInPeriodNode != nil && err == nil {
 			repo.StarsInPeriod = strings.TrimSpace(htmlquery.InnerText(starsInPeriodNode[0]))
 		}
 		repos = append(repos, *repo)
