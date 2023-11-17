@@ -1,8 +1,8 @@
 {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian-11",
+    "image": "mcr.microsoft.com/devcontainers/base:debian",
     "features": {
-        "golang": "latest",
-        "github-cli": "latest"
+        "ghcr.io/devcontainers/features/go:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
     },
     "remoteUser": "vscode",
     "postCreateCommand": "go install github.com/spf13/cobra-cli@latest"
