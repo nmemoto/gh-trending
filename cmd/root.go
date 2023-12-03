@@ -167,7 +167,12 @@ func ParseRepos(r io.Reader) ([]Repository, error) {
 		}
 
 		hrefPath := htmlquery.SelectAttr(repoLinkNode, "href")
-		repo.Href = path.Join(githubURL, hrefPath)
+		href, err := url.JoinPath(githubURL, hrefPath)
+		if err != nil {
+			return nil, err
+		}
+
+		repo.Href = href
 		repoName := strings.Split(hrefPath, "/")
 		repo.RepoName = repoName[1] + "/" + repoName[2]
 
